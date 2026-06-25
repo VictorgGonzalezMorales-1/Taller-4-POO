@@ -1,5 +1,8 @@
 package dominio;
 
+//Importar librerias necesarias
+import visitor.*;
+
 public class Item extends Cartas {
 
 	private double bonificacion;
@@ -11,6 +14,12 @@ public class Item extends Cartas {
 
 	public double getBonificacion() {
 		return bonificacion;
+	}
+
+	@Override
+	public void Aceptar(InterfazVisitor V) {
+		V.Visit(this);
+		
 	}
 
 }

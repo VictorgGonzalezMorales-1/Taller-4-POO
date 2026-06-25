@@ -1,5 +1,8 @@
 package dominio;
 
+//Importar librerias necesarias
+import visitor.*;
+
 public class Pokemon extends Cartas {
 
 	private double daño;
@@ -13,6 +16,16 @@ public class Pokemon extends Cartas {
 
 	public double getDaño() {
 		return daño;
+	}
+
+	public double getCantEnergias() {
+		return cantEnergias;
+	}
+
+	@Override
+	public void Aceptar(InterfazVisitor V) {
+		V.Visit(this);
+
 	}
 
 }

@@ -1,5 +1,8 @@
 package dominio;
 
+//Importar librerias necesarias
+import visitor.*;
+
 public class Energy extends Cartas {
 
 	private String elemento;
@@ -11,6 +14,12 @@ public class Energy extends Cartas {
 
 	public String getElemento() {
 		return elemento;
+	}
+
+	@Override
+	public void Aceptar(InterfazVisitor V) {
+		V.Visit(this);
+		
 	}
 
 }

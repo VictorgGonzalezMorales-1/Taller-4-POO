@@ -1,5 +1,8 @@
 package dominio;
 
+//Importar librerias necesarias
+import visitor.*;
+
 public abstract class Cartas {
 
 	protected String nombreCarta;
@@ -25,5 +28,8 @@ public abstract class Cartas {
 	public String getNombreCarta() {
 		return nombreCarta;
 	}
+	
+	// Método generado para aceptar la visita de la clase visitor
+	public abstract void Aceptar(InterfazVisitor V);
 
 }

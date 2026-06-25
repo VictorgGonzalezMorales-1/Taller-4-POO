@@ -1,5 +1,8 @@
 package dominio;
 
+//Importar librerias necesarias
+import visitor.*;
+
 public class Supporter extends Cartas {
 
 	private double efectosPorTurno;
@@ -11,6 +14,12 @@ public class Supporter extends Cartas {
 
 	public double getEfectosPorTurno() {
 		return efectosPorTurno;
+	}
+
+	@Override
+	public void Aceptar(InterfazVisitor V) {
+		V.Visit(this);
+		
 	}
 
 }
