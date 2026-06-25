@@ -5,6 +5,8 @@ import java.util.Scanner;
 import java.io.File;
 
 public class Main {
+	
+	static Sistema S = SistemaImplementado.getInstance();
 
 	public static void main(String[] args) {
 		
@@ -23,7 +25,7 @@ public class Main {
 			lector = new Scanner(file);
 			
 			while(lector.hasNextLine()) {
-				P(lector.nextLine());
+				S.TrabajarLinea(lector.nextLine());
 			}
 			
 		}catch(Exception e) {
