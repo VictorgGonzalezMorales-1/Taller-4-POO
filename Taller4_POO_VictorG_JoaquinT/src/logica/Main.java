@@ -55,6 +55,8 @@ public class Main {
 		JPanel menuInicial = new JPanel(new GridLayout(1, 1));
 		JPanel panelBotones = new JPanel(new GridLayout(2, 1));
 
+		estoyEnAdministrador = false;
+
 		JButton administracion = EntrarPanelAdministrador("Administrador");
 		JButton colecciones = EntrarPanelPoder("Estrategia de Ordenamiento");
 		;
@@ -111,6 +113,8 @@ public class Main {
 		JButton click = new JButton("Regresar");
 		click.addActionListener(e -> {
 
+			quieroEliminar = false;
+			quieroModificar = false;
 			CambiarPantalla(CrearPanelDeAdministrador());
 
 		});
@@ -125,6 +129,7 @@ public class Main {
 		JButton click = new JButton(tipo);
 		click.addActionListener(e -> {
 
+			quieroEliminar = true;
 			CambiarPantalla(EntregarVectorEnOrden(tipoOrden));
 
 		});
@@ -139,6 +144,7 @@ public class Main {
 		JButton click = new JButton(tipo);
 		click.addActionListener(e -> {
 
+			quieroModificar = true;
 			CambiarPantalla(EntregarVectorEnOrden(tipoOrden));
 
 		});
@@ -287,6 +293,7 @@ public class Main {
 		JButton efectorPorTurno;
 		JButton elemento;
 		JButton regresar = VolverALasCartas(tipoOrden);
+		JButton eliminar;
 
 		switch (d[0]) {
 
@@ -314,6 +321,41 @@ public class Main {
 			}
 
 			else {
+
+				if (quieroEliminar == true) {
+
+					atributos = new JPanel(new GridLayout(3, 1));
+					tipo = new JButton("Tipo: " + d[0]);
+					nombre = new JButton("Nombre: " + d[3]);
+					eliminar = new JButton("Eliminar");
+
+					atributos.add(tipo);
+					atributos.add(nombre);
+					atributos.add(eliminar);
+					atributos.add(regresar);
+
+				}
+
+				else if (quieroModificar == true) {
+
+					atributos = new JPanel(new GridLayout(7, 1));
+
+					tipo = new JButton("Tipo: " + d[0]);
+					nombre = new JButton("Nombre: " + d[3]);
+					rareza = new JButton("Rareza: " + d[4]);
+					daño = new JButton("Daño: " + d[1]);
+					energias = new JButton("Cantidad Energías: " + d[2]);
+					poder = new JButton("Poder: " + d[6]);
+
+					atributos.add(tipo);
+					atributos.add(nombre);
+					atributos.add(rareza);
+					atributos.add(daño);
+					atributos.add(energias);
+					atributos.add(poder);
+					atributos.add(regresar);
+
+				}
 
 			}
 
@@ -347,9 +389,34 @@ public class Main {
 
 				if (quieroEliminar == true) {
 
+					atributos = new JPanel(new GridLayout(3, 1));
+					tipo = new JButton("Tipo: " + d[0]);
+					nombre = new JButton("Nombre: " + d[2]);
+					eliminar = new JButton("Eliminar");
+
+					atributos.add(tipo);
+					atributos.add(nombre);
+					atributos.add(eliminar);
+					atributos.add(regresar);
+
 				}
 
 				else if (quieroModificar == true) {
+
+					atributos = new JPanel(new GridLayout(5, 1));
+
+					tipo = new JButton("Tipo: " + d[0]);
+					nombre = new JButton("Nombre: " + d[2]);
+					rareza = new JButton("Rareza: " + d[3]);
+					bonificacion = new JButton("Bonificación: " + d[1]);
+					poder = new JButton("Poder: " + d[4]);
+
+					atributos.add(tipo);
+					atributos.add(nombre);
+					atributos.add(rareza);
+					atributos.add(bonificacion);
+					atributos.add(poder);
+					atributos.add(regresar);
 
 				}
 
@@ -385,9 +452,34 @@ public class Main {
 
 				if (quieroEliminar == true) {
 
+					atributos = new JPanel(new GridLayout(3, 1));
+					tipo = new JButton("Tipo: " + d[0]);
+					nombre = new JButton("Nombre: " + d[2]);
+					eliminar = new JButton("Eliminar");
+
+					atributos.add(tipo);
+					atributos.add(nombre);
+					atributos.add(eliminar);
+					atributos.add(regresar);
+
 				}
 
 				else if (quieroModificar == true) {
+
+					atributos = new JPanel(new GridLayout(5, 1));
+
+					tipo = new JButton("Tipo: " + d[0]);
+					nombre = new JButton("Nombre: " + d[2]);
+					rareza = new JButton("Rareza: " + d[3]);
+					efectorPorTurno = new JButton("Efectos por turno: " + d[1]);
+					poder = new JButton("Poder: " + d[4]);
+
+					atributos.add(tipo);
+					atributos.add(nombre);
+					atributos.add(rareza);
+					atributos.add(efectorPorTurno);
+					atributos.add(poder);
+					atributos.add(regresar);
 
 				}
 
@@ -423,9 +515,34 @@ public class Main {
 
 				if (quieroEliminar == true) {
 
+					atributos = new JPanel(new GridLayout(3, 1));
+					tipo = new JButton("Tipo: " + d[0]);
+					nombre = new JButton("Nombre: " + d[2]);
+					eliminar = new JButton("Eliminar");
+
+					atributos.add(tipo);
+					atributos.add(nombre);
+					atributos.add(eliminar);
+					atributos.add(regresar);
+
 				}
 
 				else if (quieroModificar == true) {
+
+					atributos = new JPanel(new GridLayout(5, 1));
+
+					tipo = new JButton("Tipo: " + d[0]);
+					nombre = new JButton("Nombre: " + d[2]);
+					rareza = new JButton("Rareza: " + d[3]);
+					elemento = new JButton("Elemento: " + d[1]);
+					poder = new JButton("Poder: " + d[4]);
+
+					atributos.add(tipo);
+					atributos.add(nombre);
+					atributos.add(rareza);
+					atributos.add(elemento);
+					atributos.add(poder);
+					atributos.add(regresar);
 
 				}
 
