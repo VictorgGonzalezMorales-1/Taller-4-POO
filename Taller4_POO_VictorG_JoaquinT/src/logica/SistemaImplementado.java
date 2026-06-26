@@ -47,7 +47,7 @@ public class SistemaImplementado implements Sistema {
 
 		for (int a = 0; a < M.size(); a++) {
 			M.get(a).Aceptar(V);
-			texto += M.get(a).getNombreCarta() + "  -  " + V.EntregarResultado() + "";
+			texto += (a + 1) + ") " + M.get(a).getNombreCarta() + "  -  " + V.EntregarResultado() + ",";
 		}
 
 		return texto + "";
