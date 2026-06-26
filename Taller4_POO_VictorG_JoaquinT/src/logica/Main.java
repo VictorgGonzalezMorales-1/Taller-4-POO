@@ -24,6 +24,7 @@ public class Main {
 
 	}
 
+	// Encargado de Generar la Ventana y direccionar labores
 	private static void InterfazUsuario() {
 
 		menu = new JFrame("MateoGodoyBuscaNovia");
@@ -34,6 +35,8 @@ public class Main {
 
 	}
 
+	// Método generado para que a la hora de cambiar entre los menú u opciones, se
+	// actualice la pantalla
 	private static void CambiarPantalla(JPanel nuevoPanel) {
 
 		menu.getContentPane().removeAll();
@@ -43,6 +46,7 @@ public class Main {
 
 	}
 
+	// Método generado para generar el menú inicial
 	private static JPanel CrearGUI() {
 
 		JPanel menuInicial = new JPanel(new GridLayout(1, 1));
@@ -60,6 +64,8 @@ public class Main {
 		return menuInicial;
 	}
 
+	// Método generado para al precionar el botón de Estrategia ordenamiento se
+	// redireccione a este menu
 	private static JButton EntrarPanelPoder(String t) {
 
 		JButton click = new JButton(t);
@@ -73,6 +79,7 @@ public class Main {
 
 	}
 
+	// Método generado para crear el panel de poder
 	private static JPanel CrearPanelDePoder() {
 
 		JPanel menuPoder = new JPanel(new GridLayout(1, 1));
@@ -93,6 +100,8 @@ public class Main {
 		return menuPoder;
 	}
 
+	// Método generado para al presionar algun método de ordenamiento, se direccione
+	// para completar esta tarea
 	private static JButton EntregarOrden(String tipoOrden, String tipo) {
 
 		JButton click = new JButton(tipo);
@@ -106,12 +115,14 @@ public class Main {
 
 	}
 
+	// Método generado para generar los paneles en donde se mostrará el orden
+	// resultante de la opción,
 	private static JPanel EntregarVectorEnOrden(String tipoOrden) {
 
 		JPanel EntregarVector = new JPanel(new BorderLayout());
 		JPanel Boton = new JPanel();
 		JPanel vacio = new JPanel();
-		
+
 		vacio.setLayout(new BoxLayout(vacio, BoxLayout.Y_AXIS));
 
 		JButton Regresar = VolverAlPanelPoder();
@@ -119,7 +130,7 @@ public class Main {
 		Boton.add(Regresar);
 
 		JScrollPane scrollPane = new JScrollPane(vacio);
-		
+
 		EntregarVector.add(Boton, BorderLayout.NORTH);
 		EntregarVector.add(scrollPane, BorderLayout.CENTER);
 
@@ -129,6 +140,7 @@ public class Main {
 
 	}
 
+	// Método para regresar el menú de opciones de métodos de ordenamiento
 	private static JButton VolverAlPanelPoder() {
 
 		JButton click = new JButton("Regresar");
@@ -142,6 +154,8 @@ public class Main {
 
 	}
 
+	// Método generado para al solicitar el orden resultante de los objetos según la
+	// estrategia, mostrar en orden estos resultados agregandolos al panal vacío
 	private static void RellenarVacio(JPanel vacio, String tipoOrden) {
 
 		String[] cartas = S.EntregarOrden(tipoOrden).split(",");
@@ -153,6 +167,7 @@ public class Main {
 
 	}
 
+	//Método para regresar al menú inicial
 	private static JButton VolverAlMenuInicial() {
 
 		JButton click = new JButton("Regresar");
