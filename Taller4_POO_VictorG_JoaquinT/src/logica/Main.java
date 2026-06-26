@@ -16,7 +16,9 @@ public class Main {
 
 	static Sistema S = SistemaImplementado.getInstance();
 	static JFrame menu;
-	static Boolean estoyEnAdministrador = false;
+	static boolean estoyEnAdministrador = false;
+	static boolean quieroEliminar = false;
+	static boolean quieroModificar = false;
 
 	public static void main(String[] args) {
 
@@ -271,7 +273,7 @@ public class Main {
 
 		JPanel menuCarta = new JPanel(new GridLayout(2, 1));
 		JPanel imagen = new JPanel();
-		JPanel atributos = null;
+		JPanel atributos = new JPanel();
 
 		String[] d = S.buscarCartaPorNombre(nombreCarta).split(",");
 
@@ -290,22 +292,30 @@ public class Main {
 
 		case "Pokemon":
 
-			atributos = new JPanel(new GridLayout(7, 1));
+			if (estoyEnAdministrador == false) {
 
-			tipo = new JButton("Tipo: " + d[0]);
-			nombre = new JButton("Nombre: " + d[3]);
-			rareza = new JButton("Rareza: " + d[4]);
-			daño = new JButton("Daño: " + d[1]);
-			energias = new JButton("Cantidad Energías: " + d[2]);
-			poder = new JButton("Poder: " + d[6]);
+				atributos = new JPanel(new GridLayout(7, 1));
 
-			atributos.add(tipo);
-			atributos.add(nombre);
-			atributos.add(rareza);
-			atributos.add(daño);
-			atributos.add(energias);
-			atributos.add(poder);
-			atributos.add(regresar);
+				tipo = new JButton("Tipo: " + d[0]);
+				nombre = new JButton("Nombre: " + d[3]);
+				rareza = new JButton("Rareza: " + d[4]);
+				daño = new JButton("Daño: " + d[1]);
+				energias = new JButton("Cantidad Energías: " + d[2]);
+				poder = new JButton("Poder: " + d[6]);
+
+				atributos.add(tipo);
+				atributos.add(nombre);
+				atributos.add(rareza);
+				atributos.add(daño);
+				atributos.add(energias);
+				atributos.add(poder);
+				atributos.add(regresar);
+
+			}
+
+			else {
+
+			}
 
 			menuCarta.add(imagen);
 			menuCarta.add(atributos);
@@ -314,20 +324,36 @@ public class Main {
 
 		case "Item":
 
-			atributos = new JPanel(new GridLayout(5, 1));
+			if (estoyEnAdministrador == false) {
 
-			tipo = new JButton("Tipo: " + d[0]);
-			nombre = new JButton("Nombre: " + d[2]);
-			rareza = new JButton("Rareza: " + d[3]);
-			bonificacion = new JButton("Bonificación: " + d[1]);
-			poder = new JButton("Poder: " + d[4]);
+				atributos = new JPanel(new GridLayout(5, 1));
 
-			atributos.add(tipo);
-			atributos.add(nombre);
-			atributos.add(rareza);
-			atributos.add(bonificacion);
-			atributos.add(poder);
-			atributos.add(regresar);
+				tipo = new JButton("Tipo: " + d[0]);
+				nombre = new JButton("Nombre: " + d[2]);
+				rareza = new JButton("Rareza: " + d[3]);
+				bonificacion = new JButton("Bonificación: " + d[1]);
+				poder = new JButton("Poder: " + d[4]);
+
+				atributos.add(tipo);
+				atributos.add(nombre);
+				atributos.add(rareza);
+				atributos.add(bonificacion);
+				atributos.add(poder);
+				atributos.add(regresar);
+
+			}
+
+			else {
+
+				if (quieroEliminar == true) {
+
+				}
+
+				else if (quieroModificar == true) {
+
+				}
+
+			}
 
 			menuCarta.add(imagen);
 			menuCarta.add(atributos);
@@ -335,20 +361,37 @@ public class Main {
 			break;
 
 		case "Supporter":
-			atributos = new JPanel(new GridLayout(5, 1));
 
-			tipo = new JButton("Tipo: " + d[0]);
-			nombre = new JButton("Nombre: " + d[2]);
-			rareza = new JButton("Rareza: " + d[3]);
-			efectorPorTurno = new JButton("Efectos por turno: " + d[1]);
-			poder = new JButton("Poder: " + d[4]);
+			if (estoyEnAdministrador == false) {
 
-			atributos.add(tipo);
-			atributos.add(nombre);
-			atributos.add(rareza);
-			atributos.add(efectorPorTurno);
-			atributos.add(poder);
-			atributos.add(regresar);
+				atributos = new JPanel(new GridLayout(5, 1));
+
+				tipo = new JButton("Tipo: " + d[0]);
+				nombre = new JButton("Nombre: " + d[2]);
+				rareza = new JButton("Rareza: " + d[3]);
+				efectorPorTurno = new JButton("Efectos por turno: " + d[1]);
+				poder = new JButton("Poder: " + d[4]);
+
+				atributos.add(tipo);
+				atributos.add(nombre);
+				atributos.add(rareza);
+				atributos.add(efectorPorTurno);
+				atributos.add(poder);
+				atributos.add(regresar);
+
+			}
+
+			else {
+
+				if (quieroEliminar == true) {
+
+				}
+
+				else if (quieroModificar == true) {
+
+				}
+
+			}
 
 			menuCarta.add(imagen);
 			menuCarta.add(atributos);
@@ -356,20 +399,37 @@ public class Main {
 			break;
 
 		case "Energy":
-			atributos = new JPanel(new GridLayout(5, 1));
 
-			tipo = new JButton("Tipo: " + d[0]);
-			nombre = new JButton("Nombre: " + d[2]);
-			rareza = new JButton("Rareza: " + d[3]);
-			elemento = new JButton("Elemento: " + d[1]);
-			poder = new JButton("Poder: " + d[4]);
+			if (estoyEnAdministrador == false) {
 
-			atributos.add(tipo);
-			atributos.add(nombre);
-			atributos.add(rareza);
-			atributos.add(elemento);
-			atributos.add(poder);
-			atributos.add(regresar);
+				atributos = new JPanel(new GridLayout(5, 1));
+
+				tipo = new JButton("Tipo: " + d[0]);
+				nombre = new JButton("Nombre: " + d[2]);
+				rareza = new JButton("Rareza: " + d[3]);
+				elemento = new JButton("Elemento: " + d[1]);
+				poder = new JButton("Poder: " + d[4]);
+
+				atributos.add(tipo);
+				atributos.add(nombre);
+				atributos.add(rareza);
+				atributos.add(elemento);
+				atributos.add(poder);
+				atributos.add(regresar);
+
+			}
+
+			else {
+
+				if (quieroEliminar == true) {
+
+				}
+
+				else if (quieroModificar == true) {
+
+				}
+
+			}
 
 			menuCarta.add(imagen);
 			menuCarta.add(atributos);
