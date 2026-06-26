@@ -1,4 +1,12 @@
+/*
+ * Taller 4 - Programación Orientada a Objetos - I Semestre 2026
+ * - Integrante 1: Victor Manuel Gonzalez Morales, Carrera: Ingeniería Civil Industrial, RUT: 22.061.552-9, GitHub: VictorgGonzalezMorales-1
+ * - Integrante 2: Joaquin Esteban Torres Flores, Carrera: Ingeniería Civil Industrial, RUT: 21.547.370-8, GitHub: JoaquinTFdev1
+ */
+
 package logica;
+
+
 
 //Importar librerias necesarias
 import java.util.Scanner;
