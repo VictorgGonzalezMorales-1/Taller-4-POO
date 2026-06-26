@@ -43,15 +43,28 @@ public class SistemaImplementado implements Sistema {
 		Ordenar(n);
 
 		String texto = "";
-		InterfazVisitor V = new VisitorPoder();
 
 		for (int a = 0; a < M.size(); a++) {
-			M.get(a).Aceptar(V);
-			texto += (a + 1) + ") " + M.get(a).getNombreCarta() + "  -  " + V.EntregarResultado() + ",";
+			texto += M.get(a).getNombreCarta() + ",";
 		}
 
 		return texto + "";
 
+	}
+
+	public String buscarCartaPorNombre(String nombre) {
+		
+		InterfazVisitor V = new VisitorPoder();
+
+		for (Cartas carta : M) {
+			
+			carta.Aceptar(V);
+
+			if (carta.getNombreCarta().equals(nombre))
+				return carta.toString() + "," + V.EntregarResultado();
+
+		}
+		return null;
 	}
 
 }

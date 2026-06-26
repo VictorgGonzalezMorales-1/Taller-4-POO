@@ -8,6 +8,7 @@ public abstract class Cartas {
 	protected String nombreCarta;
 	protected double rareza;
 	protected String tipo;
+	protected String rutaImagen;
 
 	public Cartas(String nombreCarta, double rareza, String tipo) {
 		super();
@@ -27,6 +28,10 @@ public abstract class Cartas {
 
 	public String getNombreCarta() {
 		return nombreCarta;
+	}
+	
+	public String getRutaImagen() {
+		return "{" + this.rutaImagen + "}.png/jpg/etc.";
 	}
 	
 	// Método generado para aceptar la visita de la clase visitor

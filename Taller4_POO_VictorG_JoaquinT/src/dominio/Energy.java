@@ -19,7 +19,12 @@ public class Energy extends Cartas {
 	@Override
 	public void Aceptar(InterfazVisitor V) {
 		V.Visit(this);
-		
+
+	}
+
+	@Override
+	public String toString() {
+		return tipo + "," + elemento + "," + nombreCarta + "," + rareza + "," + rutaImagen;
 	}
 
 }

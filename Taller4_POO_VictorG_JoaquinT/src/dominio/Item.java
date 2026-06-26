@@ -19,7 +19,12 @@ public class Item extends Cartas {
 	@Override
 	public void Aceptar(InterfazVisitor V) {
 		V.Visit(this);
-		
+
+	}
+
+	@Override
+	public String toString() {
+		return tipo + "," + bonificacion + "," + nombreCarta + "," + rareza + "," + rutaImagen;
 	}
 
 }

@@ -28,4 +28,9 @@ public class Pokemon extends Cartas {
 
 	}
 
+	@Override
+	public String toString() {
+		return tipo + "," +daño + "," + cantEnergias + "," + nombreCarta + "," + rareza + ","  + rutaImagen;
+	}
+
 }

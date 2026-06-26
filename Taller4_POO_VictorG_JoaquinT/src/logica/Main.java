@@ -5,10 +5,10 @@ import java.util.Scanner;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.File;
 
@@ -166,10 +166,10 @@ public class Main {
 
 		Boton.add(Regresar);
 
-		JScrollPane scrollPane = new JScrollPane(vacio);
+		JScrollPane scroll = new JScrollPane(vacio);
 
 		EntregarVector.add(Boton, BorderLayout.NORTH);
-		EntregarVector.add(scrollPane, BorderLayout.CENTER);
+		EntregarVector.add(scroll, BorderLayout.CENTER);
 
 		RellenarVacio(vacio, tipoOrden);
 
@@ -198,10 +198,153 @@ public class Main {
 		String[] cartas = S.EntregarOrden(tipoOrden).split(",");
 
 		for (int a = 0; a < cartas.length; a++) {
-			vacio.add(new JLabel(cartas[a]));
+
+			String nombre = cartas[a];
+			JButton botonNuevo = new JButton(nombre);
+			botonNuevo.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+
+			botonNuevo.addActionListener(e -> {
+
+				CambiarPantalla(CrearPanelDetalleCarta(nombre, tipoOrden));
+
+			});
+
+			vacio.add(botonNuevo);
 
 		}
 
+	}
+
+	//Método generado para dependiendo del tipo de carta, entregar su información
+	private static JPanel CrearPanelDetalleCarta(String nombreCarta, String tipoOrden) {
+
+		JPanel menuCarta = new JPanel(new GridLayout(2, 1));
+		JPanel imagen = new JPanel();
+		JPanel atributos = null;
+
+		String[] d = S.buscarCartaPorNombre(nombreCarta).split(",");
+
+		JButton tipo;
+		JButton nombre;
+		JButton rareza;
+		JButton daño;
+		JButton energias;
+		JButton poder;
+		JButton bonificacion;
+		JButton efectorPorTurno;
+		JButton elemento;
+		JButton regresar;
+
+		switch (d[0]) {
+
+		case "Pokemon":
+
+			atributos = new JPanel(new GridLayout(7, 1));
+
+			tipo = new JButton("Tipo: " + d[0]);
+			nombre = new JButton("Nombre: " + d[3]);
+			rareza = new JButton("Rareza: " + d[4]);
+			daño = new JButton("Daño: " + d[1]);
+			energias = new JButton("Cantidad Energías: " + d[2]);
+			poder = new JButton("Poder: " + d[6]);
+			regresar = VolverALasCartas(tipoOrden);
+
+			atributos.add(tipo);
+			atributos.add(nombre);
+			atributos.add(rareza);
+			atributos.add(daño);
+			atributos.add(energias);
+			atributos.add(poder);
+			atributos.add(regresar);
+
+			menuCarta.add(imagen);
+			menuCarta.add(atributos);
+
+			break;
+
+		case "Item":
+
+			atributos = new JPanel(new GridLayout(5, 1));
+
+			tipo = new JButton("Tipo: " + d[0]);
+			nombre = new JButton("Nombre: " + d[2]);
+			rareza = new JButton("Rareza: " + d[3]);
+			bonificacion = new JButton("Bonificación: " + d[1]);
+			poder = new JButton("Poder: " + d[4]);
+			regresar = VolverALasCartas(tipoOrden);
+
+			atributos.add(tipo);
+			atributos.add(nombre);
+			atributos.add(rareza);
+			atributos.add(bonificacion);
+			atributos.add(poder);
+			atributos.add(regresar);
+
+			menuCarta.add(imagen);
+			menuCarta.add(atributos);
+
+			break;
+
+		case "Supporter":
+			atributos = new JPanel(new GridLayout(5, 1));
+
+			tipo = new JButton("Tipo: " + d[0]);
+			nombre = new JButton("Nombre: " + d[2]);
+			rareza = new JButton("Rareza: " + d[3]);
+			efectorPorTurno = new JButton("Efectos por turno: " + d[1]);
+			poder = new JButton("Poder: " + d[4]);
+			regresar = VolverALasCartas(tipoOrden);
+
+			atributos.add(tipo);
+			atributos.add(nombre);
+			atributos.add(rareza);
+			atributos.add(efectorPorTurno);
+			atributos.add(poder);
+			atributos.add(regresar);
+
+			menuCarta.add(imagen);
+			menuCarta.add(atributos);
+
+			break;
+
+		case "Energy":
+			atributos = new JPanel(new GridLayout(5, 1));
+
+			tipo = new JButton("Tipo: " + d[0]);
+			nombre = new JButton("Nombre: " + d[2]);
+			rareza = new JButton("Rareza: " + d[3]);
+			elemento = new JButton("Elemento: " + d[1]);
+			poder = new JButton("Poder: " + d[4]);
+			regresar = VolverALasCartas(tipoOrden);
+
+			atributos.add(tipo);
+			atributos.add(nombre);
+			atributos.add(rareza);
+			atributos.add(elemento);
+			atributos.add(poder);
+			atributos.add(regresar);
+
+			menuCarta.add(imagen);
+			menuCarta.add(atributos);
+
+			break;
+
+		}
+
+		return menuCarta;
+	}
+
+	// Método para regresar al menú inicial
+	private static JButton VolverALasCartas(String tipoOrden) {
+
+		JButton click = new JButton("Regresar");
+		click.addActionListener(e -> {
+
+			CambiarPantalla(EntregarVectorEnOrden(tipoOrden));
+
+		});
+
+		return click;
 	}
 
 	// Método para regresar al menú inicial

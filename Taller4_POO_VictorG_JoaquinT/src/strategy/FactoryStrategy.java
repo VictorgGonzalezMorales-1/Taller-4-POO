@@ -4,8 +4,6 @@ public class FactoryStrategy {
 	
 	public static InterfazStrategy CrearStrategy(String n) {
 
-		InterfazStrategy S = null;
-
 		switch (n) {
 
 		case "1":
@@ -18,7 +16,7 @@ public class FactoryStrategy {
 			return new StrategyRareza();
 		}
 
-		return S;
+		return null;
 
 	}
 
