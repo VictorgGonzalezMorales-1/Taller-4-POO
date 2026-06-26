@@ -16,6 +16,7 @@ public class Main {
 
 	static Sistema S = SistemaImplementado.getInstance();
 	static JFrame menu;
+	static Boolean estoyEnAdministrador = false;
 
 	public static void main(String[] args) {
 
@@ -71,6 +72,7 @@ public class Main {
 		JButton click = new JButton(t);
 		click.addActionListener(e -> {
 
+			estoyEnAdministrador = true;
 			CambiarPantalla(CrearPanelDeAdministrador());
 
 		});
@@ -87,8 +89,8 @@ public class Main {
 		JPanel panelOpciones = new JPanel(new GridLayout(4, 1));
 
 		JButton agregar = new JButton("Agregar Carta");
-		JButton eliminar = new JButton("Eliminar Carta");
-		JButton modificar = new JButton("Modificar Carta");
+		JButton eliminar = EntregarVectorAEliminar("2", "Eliminar");
+		JButton modificar = EntregarVectorAModificar("2", "Modificar");
 		JButton regresar = VolverAlMenuInicial();
 
 		panelOpciones.add(agregar);
@@ -101,6 +103,48 @@ public class Main {
 		return menuAdministrador;
 	}
 
+	// Método para regresar el menú de opciones de métodos de ordenamiento
+	private static JButton VolverAlPanelAdministrador() {
+
+		JButton click = new JButton("Regresar");
+		click.addActionListener(e -> {
+
+			CambiarPantalla(CrearPanelDeAdministrador());
+
+		});
+
+		return click;
+
+	}
+
+	// Entregar Vector en orden de objetos
+	private static JButton EntregarVectorAEliminar(String tipoOrden, String tipo) {
+
+		JButton click = new JButton(tipo);
+		click.addActionListener(e -> {
+
+			CambiarPantalla(EntregarVectorEnOrden(tipoOrden));
+
+		});
+
+		return click;
+
+	}
+
+	// Entregar Vector en orden de objetos
+	private static JButton EntregarVectorAModificar(String tipoOrden, String tipo) {
+
+		JButton click = new JButton(tipo);
+		click.addActionListener(e -> {
+
+			CambiarPantalla(EntregarVectorEnOrden(tipoOrden));
+
+		});
+
+		return click;
+
+	}
+
 	// Método generado para al precionar el botón de Estrategia ordenamiento se
 	// redireccione a este menu
 	private static JButton EntrarPanelPoder(String t) {
@@ -108,6 +152,7 @@ public class Main {
 		JButton click = new JButton(t);
 		click.addActionListener(e -> {
 
+			estoyEnAdministrador = false;
 			CambiarPantalla(CrearPanelDePoder());
 
 		});
@@ -162,7 +207,13 @@ public class Main {
 
 		vacio.setLayout(new BoxLayout(vacio, BoxLayout.Y_AXIS));
 
-		JButton Regresar = VolverAlPanelPoder();
+		JButton Regresar = null;
+
+		if (estoyEnAdministrador == true)
+			Regresar = VolverAlPanelAdministrador();
+
+		else
+			Regresar = VolverAlPanelPoder();
 
 		Boton.add(Regresar);
 
@@ -215,7 +266,7 @@ public class Main {
 
 	}
 
-	//Método generado para dependiendo del tipo de carta, entregar su información
+	// Método generado para dependiendo del tipo de carta, entregar su información
 	private static JPanel CrearPanelDetalleCarta(String nombreCarta, String tipoOrden) {
 
 		JPanel menuCarta = new JPanel(new GridLayout(2, 1));
@@ -233,7 +284,7 @@ public class Main {
 		JButton bonificacion;
 		JButton efectorPorTurno;
 		JButton elemento;
-		JButton regresar;
+		JButton regresar = VolverALasCartas(tipoOrden);
 
 		switch (d[0]) {
 
@@ -247,7 +298,6 @@ public class Main {
 			daño = new JButton("Daño: " + d[1]);
 			energias = new JButton("Cantidad Energías: " + d[2]);
 			poder = new JButton("Poder: " + d[6]);
-			regresar = VolverALasCartas(tipoOrden);
 
 			atributos.add(tipo);
 			atributos.add(nombre);
@@ -271,7 +321,6 @@ public class Main {
 			rareza = new JButton("Rareza: " + d[3]);
 			bonificacion = new JButton("Bonificación: " + d[1]);
 			poder = new JButton("Poder: " + d[4]);
-			regresar = VolverALasCartas(tipoOrden);
 
 			atributos.add(tipo);
 			atributos.add(nombre);
@@ -293,7 +342,6 @@ public class Main {
 			rareza = new JButton("Rareza: " + d[3]);
 			efectorPorTurno = new JButton("Efectos por turno: " + d[1]);
 			poder = new JButton("Poder: " + d[4]);
-			regresar = VolverALasCartas(tipoOrden);
 
 			atributos.add(tipo);
 			atributos.add(nombre);
@@ -315,7 +363,6 @@ public class Main {
 			rareza = new JButton("Rareza: " + d[3]);
 			elemento = new JButton("Elemento: " + d[1]);
 			poder = new JButton("Poder: " + d[4]);
-			regresar = VolverALasCartas(tipoOrden);
 
 			atributos.add(tipo);
 			atributos.add(nombre);

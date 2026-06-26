@@ -52,6 +52,7 @@ public class SistemaImplementado implements Sistema {
 
 	}
 
+	@Override
 	public String buscarCartaPorNombre(String nombre) {
 		
 		InterfazVisitor V = new VisitorPoder();
