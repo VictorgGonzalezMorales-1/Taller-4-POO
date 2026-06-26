@@ -52,7 +52,7 @@ public class Main {
 		JPanel menuInicial = new JPanel(new GridLayout(1, 1));
 		JPanel panelBotones = new JPanel(new GridLayout(2, 1));
 
-		JButton administracion = new JButton("Administración");
+		JButton administracion = EntrarPanelAdministrador("Administrador");
 		JButton colecciones = EntrarPanelPoder("Estrategia de Ordenamiento");
 		;
 
@@ -62,6 +62,43 @@ public class Main {
 		menuInicial.add(panelBotones);
 
 		return menuInicial;
+	}
+
+	// Método generado para ingresar al panel de administrador luego de presionar el
+	// botón
+	private static JButton EntrarPanelAdministrador(String t) {
+
+		JButton click = new JButton(t);
+		click.addActionListener(e -> {
+
+			CambiarPantalla(CrearPanelDeAdministrador());
+
+		});
+
+		return click;
+
+	}
+
+	// Método generado para completar el panel de administrador con la distibución
+	// de botones necesarias
+	private static JPanel CrearPanelDeAdministrador() {
+
+		JPanel menuAdministrador = new JPanel(new GridLayout(1, 1));
+		JPanel panelOpciones = new JPanel(new GridLayout(4, 1));
+
+		JButton agregar = new JButton("Agregar Carta");
+		JButton eliminar = new JButton("Eliminar Carta");
+		JButton modificar = new JButton("Modificar Carta");
+		JButton regresar = VolverAlMenuInicial();
+
+		panelOpciones.add(agregar);
+		panelOpciones.add(eliminar);
+		panelOpciones.add(modificar);
+		panelOpciones.add(regresar);
+
+		menuAdministrador.add(panelOpciones);
+
+		return menuAdministrador;
 	}
 
 	// Método generado para al precionar el botón de Estrategia ordenamiento se
@@ -85,15 +122,15 @@ public class Main {
 		JPanel menuPoder = new JPanel(new GridLayout(1, 1));
 		JPanel panelOrden = new JPanel(new GridLayout(4, 1));
 
-		JButton Poder = EntregarOrden("1", "Poder");
-		JButton Nombre = EntregarOrden("2", "Nombre");
-		JButton Rareza = EntregarOrden("3", "Rareza");
-		JButton Regresar = VolverAlMenuInicial();
+		JButton poder = EntregarOrden("1", "Poder");
+		JButton nombre = EntregarOrden("2", "Nombre");
+		JButton rareza = EntregarOrden("3", "Rareza");
+		JButton regresar = VolverAlMenuInicial();
 
-		panelOrden.add(Poder);
-		panelOrden.add(Nombre);
-		panelOrden.add(Rareza);
-		panelOrden.add(Regresar);
+		panelOrden.add(poder);
+		panelOrden.add(nombre);
+		panelOrden.add(rareza);
+		panelOrden.add(regresar);
 
 		menuPoder.add(panelOrden);
 
@@ -167,7 +204,7 @@ public class Main {
 
 	}
 
-	//Método para regresar al menú inicial
+	// Método para regresar al menú inicial
 	private static JButton VolverAlMenuInicial() {
 
 		JButton click = new JButton("Regresar");
