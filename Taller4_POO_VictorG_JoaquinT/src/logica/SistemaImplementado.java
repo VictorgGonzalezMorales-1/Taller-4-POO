@@ -54,11 +54,11 @@ public class SistemaImplementado implements Sistema {
 
 	@Override
 	public String buscarCartaPorNombre(String nombre) {
-		
+
 		InterfazVisitor V = new VisitorPoder();
 
 		for (Cartas carta : M) {
-			
+
 			carta.Aceptar(V);
 
 			if (carta.getNombreCarta().equals(nombre))
@@ -66,6 +66,19 @@ public class SistemaImplementado implements Sistema {
 
 		}
 		return null;
+	}
+
+	@Override
+	public void EliminarObjetoConNombre(String nombre) {
+
+		for (int i = 0; i < M.size(); i++) {
+
+			if (M.get(i).getNombreCarta().equals(nombre)) {
+
+				M.remove(i);
+				break;
+			}
+		}
 	}
 
 }

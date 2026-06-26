@@ -6,8 +6,6 @@
 
 package logica;
 
-
-
 //Importar librerias necesarias
 import java.util.Scanner;
 import javax.swing.BoxLayout;
@@ -335,7 +333,7 @@ public class Main {
 					atributos = new JPanel(new GridLayout(3, 1));
 					tipo = new JButton("Tipo: " + d[0]);
 					nombre = new JButton("Nombre: " + d[3]);
-					eliminar = new JButton("Eliminar");
+					eliminar = EliminarObjeto(d[3]);
 
 					atributos.add(tipo);
 					atributos.add(nombre);
@@ -400,7 +398,7 @@ public class Main {
 					atributos = new JPanel(new GridLayout(3, 1));
 					tipo = new JButton("Tipo: " + d[0]);
 					nombre = new JButton("Nombre: " + d[2]);
-					eliminar = new JButton("Eliminar");
+					eliminar = EliminarObjeto(d[2]);
 
 					atributos.add(tipo);
 					atributos.add(nombre);
@@ -463,7 +461,7 @@ public class Main {
 					atributos = new JPanel(new GridLayout(3, 1));
 					tipo = new JButton("Tipo: " + d[0]);
 					nombre = new JButton("Nombre: " + d[2]);
-					eliminar = new JButton("Eliminar");
+					eliminar = EliminarObjeto(d[2]);;
 
 					atributos.add(tipo);
 					atributos.add(nombre);
@@ -526,7 +524,7 @@ public class Main {
 					atributos = new JPanel(new GridLayout(3, 1));
 					tipo = new JButton("Tipo: " + d[0]);
 					nombre = new JButton("Nombre: " + d[2]);
-					eliminar = new JButton("Eliminar");
+					eliminar = EliminarObjeto(d[2]);
 
 					atributos.add(tipo);
 					atributos.add(nombre);
@@ -564,6 +562,21 @@ public class Main {
 		}
 
 		return menuCarta;
+	}
+
+	// Método generado para eliminar un objeto del Vector
+	private static JButton EliminarObjeto(String nombre) {
+
+		JButton click = new JButton("Eliminar");
+		click.addActionListener(e -> {
+
+			S.EliminarObjetoConNombre(nombre);
+			CambiarPantalla(EntregarVectorEnOrden("2"));
+
+		});
+
+		return click;
+
 	}
 
 	// Método para regresar al menú inicial

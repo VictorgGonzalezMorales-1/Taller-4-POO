@@ -15,4 +15,8 @@ public interface Sistema {
 	// es que
 	String buscarCartaPorNombre(String nombre);
 
+	// Método generado para al recibir un nombre, este buscarlo en el vector y
+	// eliminarlo
+	void EliminarObjetoConNombre(String nombre);
+
 }
