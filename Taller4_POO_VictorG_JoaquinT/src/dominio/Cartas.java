@@ -3,6 +3,10 @@ package dominio;
 //Importar librerias necesarias
 import visitor.*;
 
+/**
+ * Clase abstracta que representa una carta generica de la coleccion.
+ * Contiene los atributos comunes de todos los tipos de cartas.
+ */
 public abstract class Cartas {
 
 	protected String nombreCarta;
@@ -10,31 +14,88 @@ public abstract class Cartas {
 	protected String tipo;
 	protected String rutaImagen;
 
+	/**
+	 * Constructor de la clase Cartas.
+	 *
+	 * @param nombreCarta nombre de la carta
+	 * @param rareza rareza de la carta
+	 * @param tipo tipo de carta
+	 */
 	public Cartas(String nombreCarta, double rareza, String tipo) {
-		super();
 		this.nombreCarta = nombreCarta;
 		this.rareza = rareza;
 		this.tipo = tipo;
+		this.rutaImagen = "imagenes/" + nombreCarta;
 	}
+
+	/**
+	 * Retorna la rareza de la carta.
+	 *
+	 * @return rareza de la carta
+	 */
+	public double getRareza() {
+		return rareza;
+	}
+
+	/**
+	 * Retorna el nombre de la carta.
+	 *
+	 * @return nombre de la carta
+	 */
+	public String getNombreCarta() {
+		return nombreCarta;
+	}
+
+	/**
+	 * Retorna el tipo de carta.
+	 *
+	 * @return tipo de carta
+	 */
+	public String getTipo() {
+		return tipo;
+	}
+
+	/**
+	 * Retorna la ruta base de la imagen.
+	 * La extension se buscara despues como png, jpg o jpeg.
+	 *
+	 * @return ruta base de imagen
+	 */
+	public String getRutaImagen() {
+		return rutaImagen;
+	}
+
+	/**
+	 * Metodo para aceptar un visitor.
+	 *
+	 * @param V visitor que operara sobre la carta
+	 */
+	public abstract void Aceptar(InterfazVisitor V);
+
+	/**
+	 * Retorna la carta en el formato original de Sobres.txt.
+	 *
+	 * @return linea lista para guardar en archivo
+	 */
+	public abstract String FormatoArchivo();
+
+	/**
+	 * Modifica solamente los atributos adicionales segun el tipo de carta.
+	 *
+	 * @param dato1 primer dato adicional
+	 * @param dato2 segundo dato adicional, usado principalmente en Pokemon
+	 */
+	public abstract void ModificarExtras(String dato1, String dato2);
+
+	/**
+	 * Retorna una descripcion de los atributos adicionales.
+	 *
+	 * @return texto con datos extra
+	 */
+	public abstract String EntregarDatosExtra();
 
 	@Override
 	public String toString() {
 		return "Cartas [nombreCarta=" + nombreCarta + ", tipo=" + tipo + "]";
 	}
-
-	public double getRareza() {
-		return rareza;
-	}
-
-	public String getNombreCarta() {
-		return nombreCarta;
-	}
-	
-	public String getRutaImagen() {
-		return "{" + this.rutaImagen + "}.png/jpg/etc.";
-	}
-	
-	// Método generado para aceptar la visita de la clase visitor
-	public abstract void Aceptar(InterfazVisitor V);
-
 }
