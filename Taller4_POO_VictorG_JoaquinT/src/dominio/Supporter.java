@@ -38,7 +38,10 @@ public class Supporter extends Cartas {
 
 	@Override
 	public String FormatoArchivo() {
-		return nombreCarta + ";" + rareza + ";" + tipo + ";" + efectosPorTurno;
+		return nombreCarta + ";" +
+				FormatearNumero(rareza) + ";" +
+				tipo + ";" +
+				FormatearNumero(efectosPorTurno);
 	}
 
 	@Override

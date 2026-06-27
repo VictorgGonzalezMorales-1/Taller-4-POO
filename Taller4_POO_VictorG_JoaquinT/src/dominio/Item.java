@@ -38,7 +38,10 @@ public class Item extends Cartas {
 
 	@Override
 	public String FormatoArchivo() {
-		return nombreCarta + ";" + rareza + ";" + tipo + ";" + bonificacion;
+		return nombreCarta + ";" +
+				FormatearNumero(rareza) + ";" +
+				tipo + ";" +
+				FormatearNumero(bonificacion);
 	}
 
 	@Override

@@ -49,7 +49,11 @@ public class Pokemon extends Cartas {
 
 	@Override
 	public String FormatoArchivo() {
-		return nombreCarta + ";" + rareza + ";" + tipo + ";" + daño + ";" + cantEnergias;
+		return nombreCarta + ";" +
+				FormatearNumero(rareza) + ";" +
+				tipo + ";" +
+				FormatearNumero(daño) + ";" +
+				FormatearNumero(cantEnergias);
 	}
 
 	@Override

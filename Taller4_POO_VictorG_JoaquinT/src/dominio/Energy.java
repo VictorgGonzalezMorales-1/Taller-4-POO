@@ -38,7 +38,10 @@ public class Energy extends Cartas {
 
 	@Override
 	public String FormatoArchivo() {
-		return nombreCarta + ";" + rareza + ";" + tipo + ";" + elemento;
+		return nombreCarta + ";" +
+				FormatearNumero(rareza) + ";" +
+				tipo + ";" +
+				elemento;
 	}
 
 	@Override

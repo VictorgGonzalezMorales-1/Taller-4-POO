@@ -93,6 +93,22 @@ public abstract class Cartas {
 	 * @return texto con datos extra
 	 */
 	public abstract String EntregarDatosExtra();
+	
+	/**
+	 * Formatea un numero para guardarlo en el archivo.
+	 * Si el numero es entero, lo guarda sin decimal.
+	 *
+	 * @param numero numero a formatear
+	 * @return numero como texto
+	 */
+	protected String FormatearNumero(double numero) {
+		if (numero == (long) numero) {
+			return String.valueOf((long) numero);
+		}
+
+		return String.valueOf(numero);
+	}
+	
 
 	@Override
 	public String toString() {
