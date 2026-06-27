@@ -13,10 +13,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.File;
+import gui.GestorImagenes;
 
 public class Main {
 
@@ -287,8 +291,13 @@ public class Main {
 		JPanel imagen = new JPanel();
 		JPanel atributos = new JPanel();
 
+		ImageIcon iconoCarta = GestorImagenes.CrearIconoCarta(nombreCarta, 220, 300);
+		JLabel labelImagen = new JLabel(iconoCarta);
+		labelImagen.setHorizontalAlignment(SwingConstants.CENTER);
+		imagen.add(labelImagen);
+		
 		String[] d = S.buscarCartaPorNombre(nombreCarta).split(",");
-
+		
 		JButton tipo;
 		JButton nombre;
 		JButton rareza;
