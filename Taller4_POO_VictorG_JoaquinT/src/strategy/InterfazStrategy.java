@@ -2,12 +2,21 @@ package strategy;
 
 //Importar librerias necesarias
 import dominio.*;
-import logica.*;
 import java.util.LinkedList;
 
+/**
+ * Interfaz del patron Strategy.
+ * Define el comportamiento comun para ordenar la coleccion de cartas.
+ */
 public interface InterfazStrategy {
 
-	// Recibe el vector memoria de objetos y devuelve el mismo, pero odenado
+	/**
+	 * Recibe la memoria de cartas y retorna la misma coleccion ordenada
+	 * segun la estrategia concreta.
+	 *
+	 * @param C coleccion de cartas
+	 * @return coleccion ordenada
+	 */
 	LinkedList<Cartas> Ordenar(LinkedList<Cartas> C);
 
 }
