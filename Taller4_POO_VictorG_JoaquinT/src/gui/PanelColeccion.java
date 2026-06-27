@@ -1,23 +1,31 @@
 package gui;
 
+import dominio.Cartas;
 import logica.Sistema;
 
-import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
+
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.Dimension;
+
+import java.util.LinkedList;
 
 /**
  * Panel correspondiente a la pestaña Ver Coleccion.
- * Muestra inicialmente las cartas cargadas en el sistema.
+ * Permite visualizar las cartas, ordenarlas y abrir su detalle ampliado.
  */
 public class PanelColeccion extends JPanel {
 
 	private Sistema sistema;
-	private DefaultListModel<String> modeloLista;
-	private JList<String> listaCartas;
+	private JPanel panelCartas;
+	private JComboBox<String> comboOrden;
 
 	/**
 	 * Constructor del panel de coleccion.
@@ -36,28 +44,107 @@ public class PanelColeccion extends JPanel {
 	private void crearComponentes() {
 		setLayout(new BorderLayout());
 
-		JLabel titulo = new JLabel("Ver Coleccion", JLabel.CENTER);
+		JPanel panelSuperior = new JPanel();
 
-		modeloLista = new DefaultListModel<String>();
-		listaCartas = new JList<String>(modeloLista);
+		JLabel titulo = new JLabel("Ver Coleccion");
+		comboOrden = new JComboBox<String>(new String[] { "Poder", "Nombre", "Rareza" });
+		JButton btnOrdenar = new JButton("Ordenar / Actualizar");
 
-		add(titulo, BorderLayout.NORTH);
-		add(new JScrollPane(listaCartas), BorderLayout.CENTER);
+		panelSuperior.add(titulo);
+		panelSuperior.add(new JLabel("Ordenar por:"));
+		panelSuperior.add(comboOrden);
+		panelSuperior.add(btnOrdenar);
+
+		panelCartas = new JPanel();
+		panelCartas.setLayout(new GridLayout(0, 4, 10, 10));
+
+		JScrollPane scroll = new JScrollPane(panelCartas);
+
+		add(panelSuperior, BorderLayout.NORTH);
+		add(scroll, BorderLayout.CENTER);
+
+		btnOrdenar.addActionListener(e -> ActualizarLista());
 	}
 
 	/**
-	 * Actualiza la lista visual de cartas.
+	 * Actualiza la vista de cartas segun el orden seleccionado.
 	 */
 	public void ActualizarLista() {
-		modeloLista.clear();
+		panelCartas.removeAll();
 
-		String datos = sistema.EntregarOrden("2");
-		String[] cartas = datos.split(",");
+		String tipoOrden = ObtenerTipoOrden();
+		sistema.EntregarOrden(tipoOrden);
 
-		for (int i = 0; i < cartas.length; i++) {
-			if (cartas[i].length() > 0) {
-				modeloLista.addElement(cartas[i]);
-			}
+		LinkedList<Cartas> cartas = sistema.EntregarMemoria();
+
+		for (int i = 0; i < cartas.size(); i++) {
+			Cartas carta = cartas.get(i);
+			JButton botonCarta = CrearBotonCarta(carta, i);
+			panelCartas.add(botonCarta);
 		}
+
+		panelCartas.revalidate();
+		panelCartas.repaint();
+	}
+
+	/**
+	 * Transforma la opcion del combo en la opcion usada por FactoryStrategy.
+	 *
+	 * @return codigo de estrategia
+	 */
+	private String ObtenerTipoOrden() {
+		String opcion = comboOrden.getSelectedItem().toString();
+
+		if (opcion.equals("Poder")) {
+			return "1";
+		}
+
+		if (opcion.equals("Nombre")) {
+			return "2";
+		}
+
+		return "3";
+	}
+
+	/**
+	 * Crea un boton visual para una carta.
+	 *
+	 * @param carta carta a mostrar
+	 * @param indice posicion de la carta en la coleccion actual
+	 * @return boton de carta
+	 */
+	private JButton CrearBotonCarta(Cartas carta, int indice) {
+		JButton boton = new JButton();
+
+		String texto = "<html><center>"
+				+ carta.getNombreCarta()
+				+ "<br>Tipo: " + carta.getTipo()
+				+ "<br>Rareza: " + carta.getRareza()
+				+ "</center></html>";
+
+		boton.setText(texto);
+
+		ImageIcon icono = GestorImagenes.CrearIconoCarta(carta.getNombreCarta(), 110, 150);
+		boton.setIcon(icono);
+
+		boton.setHorizontalTextPosition(SwingConstants.CENTER);
+		boton.setVerticalTextPosition(SwingConstants.BOTTOM);
+
+		boton.setPreferredSize(new Dimension(180, 240));
+
+		boton.addActionListener(e -> AbrirDetalleCarta(carta, indice));
+
+		return boton;
+	}
+
+	/**
+	 * Abre una ventana ampliada con los datos de la carta seleccionada.
+	 *
+	 * @param carta carta seleccionada
+	 * @param indice posicion de la carta
+	 */
+	private void AbrirDetalleCarta(Cartas carta, int indice) {
+		VentanaDetalleCarta detalle = new VentanaDetalleCarta(carta, indice);
+		detalle.setVisible(true);
 	}
 }
