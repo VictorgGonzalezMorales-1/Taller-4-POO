@@ -7,8 +7,7 @@ import visitor.InterfazVisitor;
 import visitor.VisitorPoder;
 
 /**
- * Estrategia que ordena las cartas por poder calculado.
- * El poder se obtiene usando el patron Visitor.
+ * Estrategia que ordena las cartas por poder.
  */
 public class StrategyPoder implements InterfazStrategy {
 
@@ -36,9 +35,6 @@ public class StrategyPoder implements InterfazStrategy {
 
 	/**
 	 * Calcula el poder de una carta usando Visitor.
-	 *
-	 * @param carta carta a evaluar
-	 * @return poder calculado
 	 */
 	private double CalcularPoder(Cartas carta) {
 		InterfazVisitor V = new VisitorPoder();

@@ -8,7 +8,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
@@ -16,21 +15,15 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 /**
- * Ventana ampliada para visualizar una carta seleccionada.
- * Muestra imagen, atributos y poder calculado mediante Visitor.
+ * Ventana que muestra una carta ampliada.
  */
 public class VentanaDetalleCarta extends JFrame {
 
 	private Cartas carta;
 	private int indice;
 
-	/**
-	 * Constructor de la ventana de detalle.
-	 *
-	 * @param carta carta seleccionada
-	 * @param indice posicion de la carta dentro de la coleccion
-	 */
 	public VentanaDetalleCarta(Cartas carta, int indice) {
+
 		this.carta = carta;
 		this.indice = indice;
 
@@ -42,24 +35,24 @@ public class VentanaDetalleCarta extends JFrame {
 	}
 
 	/**
-	 * Crea los componentes visuales de la ventana.
+	 * Crea los paneles de la ventana.
 	 */
 	private void crearComponentes() {
+
 		setLayout(new BorderLayout());
 
 		JPanel panelImagen = CrearPanelImagen();
 		JPanel panelDatos = CrearPanelDatos();
 
 		add(panelImagen, BorderLayout.CENTER);
-		add(panelDatos, BorderLayout.SOUTH);
+		add(new JScrollPane(panelDatos), BorderLayout.SOUTH);
 	}
 
 	/**
-	 * Crea el panel donde se muestra la imagen ampliada de la carta.
-	 *
-	 * @return panel con imagen
+	 * Crea el panel de imagen.
 	 */
 	private JPanel CrearPanelImagen() {
+
 		JPanel panel = new JPanel(new BorderLayout());
 
 		ImageIcon icono = GestorImagenes.CrearIconoCarta(carta.getNombreCarta(), 260, 370);
@@ -73,39 +66,36 @@ public class VentanaDetalleCarta extends JFrame {
 	}
 
 	/**
-	 * Crea el panel donde se muestran los datos de la carta.
-	 *
-	 * @return panel con informacion de la carta
+	 * Crea el panel de datos.
 	 */
 	private JPanel CrearPanelDatos() {
-		JPanel panel = new JPanel(new GridLayout(1, 1));
 
-		JTextArea areaDatos = new JTextArea();
-		areaDatos.setEditable(false);
+		JPanel panel = new JPanel(new GridLayout(8, 1));
 
-		String texto = "Indice: " + indice + "\n"
-				+ "Nombre: " + carta.getNombreCarta() + "\n"
-				+ "Tipo: " + carta.getTipo() + "\n"
-				+ "Rareza: " + carta.getRareza() + "\n"
-				+ carta.EntregarDatosExtra() + "\n"
-				+ "Poder: " + CalcularPoder();
+		panel.add(new JLabel("Indice: " + indice));
+		panel.add(new JLabel("Nombre: " + carta.getNombreCarta()));
+		panel.add(new JLabel("Tipo: " + carta.getTipo()));
+		panel.add(new JLabel("Rareza: " + carta.getRareza()));
 
-		areaDatos.setText(texto);
+		String[] extras = carta.EntregarDatosExtra().split("\n");
 
-		JScrollPane scroll = new JScrollPane(areaDatos);
-		panel.add(scroll);
+		for (int i = 0; i < extras.length; i++) {
+			panel.add(new JLabel(extras[i]));
+		}
+
+		panel.add(new JLabel("Poder: " + CalcularPoder()));
 
 		return panel;
 	}
 
 	/**
-	 * Calcula el poder de la carta usando VisitorPoder.
-	 *
-	 * @return poder calculado de la carta
+	 * Calcula el poder usando Visitor.
 	 */
 	private double CalcularPoder() {
+
 		InterfazVisitor visitor = new VisitorPoder();
 		carta.Aceptar(visitor);
+
 		return visitor.EntregarResultado();
 	}
 }

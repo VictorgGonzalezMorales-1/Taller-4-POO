@@ -3,23 +3,23 @@ package visitor;
 import dominio.*;
 
 /**
- * Visitor encargado de calcular el poder de cada tipo de carta.
+ * Visitor encargado de calcular el poder de las cartas.
  */
 public class VisitorPoder implements InterfazVisitor {
 
 	private Double poder;
 
-	/**
-	 * Constructor del visitor.
-	 * Inicializa el poder en cero para evitar valores nulos.
-	 */
 	public VisitorPoder() {
 		poder = 0.0;
 	}
 
 	@Override
 	public void Visit(Pokemon p) {
-		poder = (p.getDaño() / p.getCantEnergias()) * 100;
+		if (p.getCantEnergias() > 0) {
+			poder = (p.getDaño() / p.getCantEnergias()) * 100;
+		} else {
+			poder = 0.0;
+		}
 	}
 
 	@Override

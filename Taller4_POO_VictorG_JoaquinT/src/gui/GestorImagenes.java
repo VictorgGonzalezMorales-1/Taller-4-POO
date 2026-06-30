@@ -5,8 +5,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 /**
- * Clase encargada de buscar, cargar y escalar imagenes de cartas.
- * Si no encuentra una imagen especifica, usa una imagen por defecto.
+ * Clase usada para cargar imagenes de cartas.
  */
 public class GestorImagenes {
 
@@ -14,11 +13,7 @@ public class GestorImagenes {
 	private static final String IMAGEN_DEFECTO = "imagenes/default.png";
 
 	/**
-	 * Busca la ruta de imagen de una carta segun su nombre.
-	 * Primero intenta con png, luego jpg y finalmente jpeg.
-	 *
-	 * @param nombreCarta nombre de la carta
-	 * @return ruta encontrada o ruta de imagen por defecto
+	 * Busca la imagen de una carta.
 	 */
 	public static String ObtenerRutaImagen(String nombreCarta) {
 
@@ -46,12 +41,7 @@ public class GestorImagenes {
 	}
 
 	/**
-	 * Crea un ImageIcon escalado a partir del nombre de una carta.
-	 *
-	 * @param nombreCarta nombre de la carta
-	 * @param ancho ancho deseado
-	 * @param alto alto deseado
-	 * @return icono escalado
+	 * Crea un icono escalado.
 	 */
 	public static ImageIcon CrearIconoCarta(String nombreCarta, int ancho, int alto) {
 

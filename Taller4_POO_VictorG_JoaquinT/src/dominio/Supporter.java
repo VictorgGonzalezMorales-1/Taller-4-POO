@@ -1,6 +1,5 @@
 package dominio;
 
-//Importar librerias necesarias
 import visitor.*;
 
 /**
@@ -12,11 +11,6 @@ public class Supporter extends Cartas {
 
 	/**
 	 * Constructor de Supporter.
-	 *
-	 * @param nombreCarta nombre de la carta
-	 * @param rareza rareza de la carta
-	 * @param tipo tipo de carta
-	 * @param efectosPorTurno efectos por turno
 	 */
 	public Supporter(String nombreCarta, double rareza, String tipo, double efectosPorTurno) {
 		super(nombreCarta, rareza, tipo);
@@ -46,7 +40,7 @@ public class Supporter extends Cartas {
 
 	@Override
 	public void ModificarExtras(String dato1, String dato2) {
-		this.efectosPorTurno = Double.valueOf(dato1);
+		efectosPorTurno = Double.valueOf(dato1);
 	}
 
 	@Override

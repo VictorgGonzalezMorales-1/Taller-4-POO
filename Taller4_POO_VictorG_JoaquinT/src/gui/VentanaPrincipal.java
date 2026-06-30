@@ -8,9 +8,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
- * Ventana principal de la aplicacion.
- * Contiene las dos pestañas solicitadas por el taller:
- * Administracion y Ver Coleccion.
+ * Ventana principal del programa.
  */
 public class VentanaPrincipal extends JFrame {
 
@@ -18,11 +16,6 @@ public class VentanaPrincipal extends JFrame {
 	private PanelAdministracion panelAdministracion;
 	private PanelColeccion panelColeccion;
 
-	/**
-	 * Constructor de la ventana principal.
-	 *
-	 * @param sistema sistema principal de la aplicacion
-	 */
 	public VentanaPrincipal(Sistema sistema) {
 		this.sistema = sistema;
 
@@ -31,13 +24,14 @@ public class VentanaPrincipal extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 
-		crearComponentes();
+		CrearGUI();
 	}
 
 	/**
-	 * Crea los componentes principales de la ventana.
+	 * Crea las pestañas principales.
 	 */
-	private void crearComponentes() {
+	private void CrearGUI() {
+
 		JTabbedPane pestanas = new JTabbedPane();
 
 		panelAdministracion = new PanelAdministracion(sistema);
@@ -50,6 +44,7 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				panelColeccion.ActualizarLista();
+				panelAdministracion.ActualizarLista();
 			}
 		});
 

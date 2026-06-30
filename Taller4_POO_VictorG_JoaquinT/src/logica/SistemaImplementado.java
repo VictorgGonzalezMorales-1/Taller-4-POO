@@ -1,6 +1,5 @@
 package logica;
 
-//Importar librerias necesarias/ Package necesarios
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.io.File;
@@ -15,29 +14,19 @@ import visitor.VisitorPoder;
 
 /**
  * Implementacion principal del sistema.
- * Esta clase usa Singleton y administra la memoria de cartas.
+ * Administra la memoria de cartas y usa Singleton.
  */
 public class SistemaImplementado implements Sistema {
 
-	// Generar memoria para guardar los objetos creados
 	static LinkedList<Cartas> M = new LinkedList<Cartas>();
 
-	// Variable para almacenar la instancia unica de la clase
 	static Sistema S;
 
 	private static final String NOMBRE_ARCHIVO = "Sobres.txt";
 
-	/**
-	 * Constructor privado para aplicar Singleton.
-	 */
 	private SistemaImplementado() {
 	}
 
-	/**
-	 * Metodo para entregar solo una instancia del Sistema.
-	 *
-	 * @return instancia unica del sistema
-	 */
 	public static Sistema getInstance() {
 		if (S == null) {
 			S = new SistemaImplementado();
@@ -48,12 +37,19 @@ public class SistemaImplementado implements Sistema {
 
 	@Override
 	public void CargarArchivo() {
-		M.clear();
+
+		M = new LinkedList<Cartas>();
 
 		File file = new File(NOMBRE_ARCHIVO);
 		Scanner lector = null;
 
 		try {
+
+			if (!file.exists()) {
+				CrearArchivoVacio();
+				return;
+			}
+
 			lector = new Scanner(file);
 
 			while (lector.hasNextLine()) {
@@ -73,11 +69,28 @@ public class SistemaImplementado implements Sistema {
 		}
 	}
 
-	@Override
-	public void GuardarArchivo() {
+	private void CrearArchivoVacio() {
+
 		PrintWriter escritor = null;
 
 		try {
+			escritor = new PrintWriter(new FileWriter(NOMBRE_ARCHIVO));
+		} catch (IOException e) {
+			System.out.println("No se pudo crear el archivo " + NOMBRE_ARCHIVO);
+		}
+
+		if (escritor != null) {
+			escritor.close();
+		}
+	}
+
+	@Override
+	public void GuardarArchivo() {
+
+		PrintWriter escritor = null;
+
+		try {
+
 			escritor = new PrintWriter(new FileWriter(NOMBRE_ARCHIVO));
 
 			for (int i = 0; i < M.size(); i++) {
@@ -95,21 +108,25 @@ public class SistemaImplementado implements Sistema {
 
 	@Override
 	public void TrabajarLinea(String l) {
+
 		try {
+
 			Cartas carta = FactoryCartas.CrearCarta(l.split(";"));
 
 			if (carta != null) {
 				M.add(carta);
 			}
 
-		} catch (RuntimeException e) {
+		} catch (Exception e) {
 			System.out.println("Linea ignorada: " + l);
 		}
 	}
 
 	@Override
 	public boolean AgregarCarta(String nombre, String rareza, String tipo, String dato1, String dato2) {
+
 		try {
+
 			if (nombre.length() == 0 || rareza.length() == 0 || tipo.length() == 0 || dato1.length() == 0) {
 				return false;
 			}
@@ -128,7 +145,7 @@ public class SistemaImplementado implements Sistema {
 				return true;
 			}
 
-		} catch (RuntimeException e) {
+		} catch (Exception e) {
 			return false;
 		}
 
@@ -137,6 +154,7 @@ public class SistemaImplementado implements Sistema {
 
 	@Override
 	public boolean EliminarCartaPorIndice(int indice) {
+
 		if (indice >= 0 && indice < M.size()) {
 			M.remove(indice);
 			GuardarArchivo();
@@ -148,18 +166,22 @@ public class SistemaImplementado implements Sistema {
 
 	@Override
 	public boolean ModificarCartaPorIndice(int indice, String dato1, String dato2) {
+
 		if (indice >= 0 && indice < M.size()) {
+
 			try {
+
 				if (dato1.length() == 0) {
 					return false;
 				}
 
 				Cartas carta = M.get(indice);
 				carta.ModificarExtras(dato1, dato2);
+
 				GuardarArchivo();
 				return true;
 
-			} catch (RuntimeException e) {
+			} catch (Exception e) {
 				return false;
 			}
 		}
@@ -167,13 +189,8 @@ public class SistemaImplementado implements Sistema {
 		return false;
 	}
 
-	/**
-	 * Metodo el cual dependiendo de la opcion que elijan, ordena los objetos
-	 * en base a ese requerimiento.
-	 *
-	 * @param t tipo de ordenamiento
-	 */
 	public void Ordenar(String t) {
+
 		InterfazStrategy estrategia = FactoryStrategy.CrearStrategy(t);
 
 		if (estrategia != null) {
@@ -183,6 +200,7 @@ public class SistemaImplementado implements Sistema {
 
 	@Override
 	public String EntregarOrden(String n) {
+
 		Ordenar(n);
 
 		String texto = "";
@@ -196,12 +214,13 @@ public class SistemaImplementado implements Sistema {
 
 	@Override
 	public String buscarCartaPorNombre(String nombre) {
+
 		InterfazVisitor V = new VisitorPoder();
 
 		for (Cartas carta : M) {
-			carta.Aceptar(V);
 
 			if (carta.getNombreCarta().equals(nombre)) {
+				carta.Aceptar(V);
 				return carta.toString() + "," + V.EntregarResultado();
 			}
 		}
@@ -211,7 +230,9 @@ public class SistemaImplementado implements Sistema {
 
 	@Override
 	public String BuscarCartaPorIndice(int indice) {
+
 		if (indice >= 0 && indice < M.size()) {
+
 			InterfazVisitor V = new VisitorPoder();
 			Cartas carta = M.get(indice);
 
@@ -225,7 +246,9 @@ public class SistemaImplementado implements Sistema {
 
 	@Override
 	public void EliminarObjetoConNombre(String nombre) {
+
 		for (int i = 0; i < M.size(); i++) {
+
 			if (M.get(i).getNombreCarta().equals(nombre)) {
 				M.remove(i);
 				GuardarArchivo();
@@ -236,6 +259,7 @@ public class SistemaImplementado implements Sistema {
 
 	@Override
 	public LinkedList<Cartas> EntregarMemoria() {
+
 		LinkedList<Cartas> copia = new LinkedList<Cartas>();
 
 		for (int i = 0; i < M.size(); i++) {

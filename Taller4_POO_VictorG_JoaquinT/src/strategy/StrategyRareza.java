@@ -5,7 +5,6 @@ import dominio.Cartas;
 
 /**
  * Estrategia que ordena las cartas por rareza.
- * Mientras mayor sea la rareza, mejor es la carta.
  */
 public class StrategyRareza implements InterfazStrategy {
 
@@ -24,7 +23,7 @@ public class StrategyRareza implements InterfazStrategy {
 				}
 			}
 		}
-		
+
 		return C;
 	}
 }
