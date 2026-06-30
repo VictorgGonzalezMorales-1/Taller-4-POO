@@ -1,6 +1,5 @@
 package dominio;
 
-//Importar librerias necesarias
 import visitor.*;
 
 /**
@@ -13,12 +12,6 @@ public class Pokemon extends Cartas {
 
 	/**
 	 * Constructor de Pokemon.
-	 *
-	 * @param nombreCarta nombre de la carta
-	 * @param rareza rareza de la carta
-	 * @param tipo tipo de carta
-	 * @param daño daño del Pokemon
-	 * @param cantEnergias cantidad de energias necesarias
 	 */
 	public Pokemon(String nombreCarta, double rareza, String tipo, double daño, double cantEnergias) {
 		super(nombreCarta, rareza, tipo);
@@ -61,12 +54,10 @@ public class Pokemon extends Cartas {
 		double nuevoDaño = Double.valueOf(dato1);
 		double nuevasEnergias = Double.valueOf(dato2);
 
-		if (nuevasEnergias <= 0) {
-			throw new IllegalArgumentException("La cantidad de energias debe ser mayor que cero.");
+		if (nuevasEnergias > 0) {
+			daño = nuevoDaño;
+			cantEnergias = nuevasEnergias;
 		}
-
-		this.daño = nuevoDaño;
-		this.cantEnergias = nuevasEnergias;
 	}
 
 	@Override

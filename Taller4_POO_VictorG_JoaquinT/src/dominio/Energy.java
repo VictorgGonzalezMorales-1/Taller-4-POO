@@ -1,6 +1,5 @@
 package dominio;
 
-//Importar librerias necesarias
 import visitor.*;
 
 /**
@@ -12,11 +11,6 @@ public class Energy extends Cartas {
 
 	/**
 	 * Constructor de Energy.
-	 *
-	 * @param nombreCarta nombre de la carta
-	 * @param rareza rareza de la carta
-	 * @param tipo tipo de carta
-	 * @param elemento elemento de la energia
 	 */
 	public Energy(String nombreCarta, double rareza, String tipo, String elemento) {
 		super(nombreCarta, rareza, tipo);
@@ -46,7 +40,7 @@ public class Energy extends Cartas {
 
 	@Override
 	public void ModificarExtras(String dato1, String dato2) {
-		this.elemento = dato1;
+		elemento = dato1;
 	}
 
 	@Override

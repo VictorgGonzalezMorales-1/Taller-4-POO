@@ -1,6 +1,5 @@
 package dominio;
 
-//Importar librerias necesarias
 import visitor.*;
 
 /**
@@ -12,11 +11,6 @@ public class Item extends Cartas {
 
 	/**
 	 * Constructor de Item.
-	 *
-	 * @param nombreCarta nombre de la carta
-	 * @param rareza rareza de la carta
-	 * @param tipo tipo de carta
-	 * @param bonificacion bonificacion del item
 	 */
 	public Item(String nombreCarta, double rareza, String tipo, double bonificacion) {
 		super(nombreCarta, rareza, tipo);
@@ -46,7 +40,7 @@ public class Item extends Cartas {
 
 	@Override
 	public void ModificarExtras(String dato1, String dato2) {
-		this.bonificacion = Double.valueOf(dato1);
+		bonificacion = Double.valueOf(dato1);
 	}
 
 	@Override

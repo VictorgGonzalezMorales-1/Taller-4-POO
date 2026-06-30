@@ -22,8 +22,7 @@ import java.awt.GridLayout;
 import java.util.LinkedList;
 
 /**
- * Panel correspondiente a la pestaña Administracion.
- * Permite agregar, eliminar y modificar cartas de la coleccion.
+ * Panel de administracion de cartas.
  */
 public class PanelAdministracion extends JPanel {
 
@@ -41,11 +40,6 @@ public class PanelAdministracion extends JPanel {
 	private DefaultListModel<String> modeloLista;
 	private JList<String> listaCartas;
 
-	/**
-	 * Constructor del panel de administracion.
-	 *
-	 * @param sistema sistema principal de la aplicacion
-	 */
 	public PanelAdministracion(Sistema sistema) {
 		this.sistema = sistema;
 		crearComponentes();
@@ -53,9 +47,10 @@ public class PanelAdministracion extends JPanel {
 	}
 
 	/**
-	 * Crea los componentes visuales del panel.
+	 * Crea la estructura del panel.
 	 */
 	private void crearComponentes() {
+
 		setLayout(new BorderLayout());
 
 		JLabel titulo = new JLabel("Administracion de cartas", JLabel.CENTER);
@@ -77,11 +72,10 @@ public class PanelAdministracion extends JPanel {
 	}
 
 	/**
-	 * Crea el formulario usado para administrar cartas.
-	 *
-	 * @return panel con formulario
+	 * Crea el formulario de administracion.
 	 */
 	private JPanel CrearPanelFormulario() {
+
 		JPanel panelFormulario = new JPanel(new GridLayout(10, 2));
 
 		txtNombre = new JTextField();
@@ -140,26 +134,34 @@ public class PanelAdministracion extends JPanel {
 	}
 
 	/**
-	 * Cambia las etiquetas del formulario dependiendo del tipo de carta.
+	 * Cambia las etiquetas segun el tipo de carta.
 	 */
 	private void ActualizarEtiquetasTipo() {
+
 		String tipo = comboTipo.getSelectedItem().toString();
 
 		if (tipo.equals("Pokemon")) {
+
 			lblDato1.setText("Daño:");
 			lblDato2.setText("Cantidad energias:");
 			txtDato2.setEnabled(true);
+
 		} else if (tipo.equals("Item")) {
+
 			lblDato1.setText("Bonificacion:");
 			lblDato2.setText("No usado:");
 			txtDato2.setText("");
 			txtDato2.setEnabled(false);
+
 		} else if (tipo.equals("Supporter")) {
+
 			lblDato1.setText("Efectos por turno:");
 			lblDato2.setText("No usado:");
 			txtDato2.setText("");
 			txtDato2.setEnabled(false);
+
 		} else if (tipo.equals("Energy")) {
+
 			lblDato1.setText("Elemento:");
 			lblDato2.setText("No usado:");
 			txtDato2.setText("");
@@ -168,9 +170,10 @@ public class PanelAdministracion extends JPanel {
 	}
 
 	/**
-	 * Agrega una carta usando los datos ingresados en el formulario.
+	 * Agrega una carta a la coleccion.
 	 */
 	private void AgregarCarta() {
+
 		String nombre = txtNombre.getText();
 		String rareza = txtRareza.getText();
 		String tipo = comboTipo.getSelectedItem().toString();
@@ -188,7 +191,7 @@ public class PanelAdministracion extends JPanel {
 		}
 
 		if (dato1.length() == 0) {
-			JOptionPane.showMessageDialog(this, "Debes ingresar el dato principal de la carta.");
+			JOptionPane.showMessageDialog(this, "Debes ingresar el dato principal.");
 			return;
 		}
 
@@ -204,14 +207,15 @@ public class PanelAdministracion extends JPanel {
 			LimpiarFormulario();
 			ActualizarLista();
 		} else {
-			JOptionPane.showMessageDialog(this, "No se pudo agregar la carta. Revisa los datos ingresados.");
+			JOptionPane.showMessageDialog(this, "No se pudo agregar la carta. Revisa los datos.");
 		}
 	}
 
 	/**
-	 * Elimina la carta seleccionada en la lista.
+	 * Elimina la carta seleccionada.
 	 */
 	private void EliminarCarta() {
+
 		int indice = listaCartas.getSelectedIndex();
 
 		if (indice < 0) {
@@ -227,6 +231,7 @@ public class PanelAdministracion extends JPanel {
 		);
 
 		if (confirmacion == JOptionPane.YES_OPTION) {
+
 			boolean eliminada = sistema.EliminarCartaPorIndice(indice);
 
 			if (eliminada) {
@@ -240,9 +245,10 @@ public class PanelAdministracion extends JPanel {
 	}
 
 	/**
-	 * Modifica solamente los atributos adicionales de la carta seleccionada.
+	 * Modifica los atributos extra de una carta.
 	 */
 	private void ModificarCarta() {
+
 		int indice = listaCartas.getSelectedIndex();
 
 		if (indice < 0) {
@@ -271,20 +277,23 @@ public class PanelAdministracion extends JPanel {
 			LimpiarFormulario();
 			ActualizarLista();
 		} else {
-			JOptionPane.showMessageDialog(this, "No se pudo modificar. Revisa los datos ingresados.");
+			JOptionPane.showMessageDialog(this, "No se pudo modificar. Revisa los datos.");
 		}
 	}
 
 	/**
-	 * Carga en el formulario los datos de la carta seleccionada.
+	 * Carga los datos de la carta seleccionada.
 	 */
 	private void CargarCartaSeleccionada() {
+
 		int indice = listaCartas.getSelectedIndex();
 
 		if (indice >= 0) {
+
 			LinkedList<Cartas> cartas = sistema.EntregarMemoria();
 
 			if (indice < cartas.size()) {
+
 				Cartas carta = cartas.get(indice);
 
 				txtNombre.setText(carta.getNombreCarta());
@@ -301,12 +310,12 @@ public class PanelAdministracion extends JPanel {
 	}
 
 	/**
-	 * Carga los atributos adicionales de una carta en los campos correspondientes.
-	 *
-	 * @param carta carta seleccionada
+	 * Carga los atributos adicionales segun el tipo.
 	 */
 	private void CargarExtras(Cartas carta) {
+
 		if (carta instanceof Pokemon) {
+
 			Pokemon p = (Pokemon) carta;
 
 			txtDato1.setText(String.valueOf(p.getDaño()));
@@ -317,6 +326,7 @@ public class PanelAdministracion extends JPanel {
 			txtDato2.setEnabled(true);
 
 		} else if (carta instanceof Item) {
+
 			Item i = (Item) carta;
 
 			txtDato1.setText(String.valueOf(i.getBonificacion()));
@@ -327,6 +337,7 @@ public class PanelAdministracion extends JPanel {
 			txtDato2.setEnabled(false);
 
 		} else if (carta instanceof Supporter) {
+
 			Supporter s = (Supporter) carta;
 
 			txtDato1.setText(String.valueOf(s.getEfectosPorTurno()));
@@ -337,6 +348,7 @@ public class PanelAdministracion extends JPanel {
 			txtDato2.setEnabled(false);
 
 		} else if (carta instanceof Energy) {
+
 			Energy e = (Energy) carta;
 
 			txtDato1.setText(e.getElemento());
@@ -349,9 +361,10 @@ public class PanelAdministracion extends JPanel {
 	}
 
 	/**
-	 * Limpia el formulario y permite ingresar una nueva carta.
+	 * Limpia el formulario.
 	 */
 	private void LimpiarFormulario() {
+
 		txtNombre.setText("");
 		txtRareza.setText("");
 		txtDato1.setText("");
@@ -362,20 +375,24 @@ public class PanelAdministracion extends JPanel {
 		comboTipo.setEnabled(true);
 		comboTipo.setSelectedItem("Pokemon");
 
-		listaCartas.clearSelection();
+		listaCartas.setSelectedIndex(-1);
 
 		ActualizarEtiquetasTipo();
 	}
 
 	/**
-	 * Actualiza la lista de cartas mostrada en la pestaña Administracion.
+	 * Actualiza la lista visual de cartas.
 	 */
 	public void ActualizarLista() {
-		modeloLista.clear();
+
+		while (modeloLista.getSize() > 0) {
+			modeloLista.removeElementAt(0);
+		}
 
 		LinkedList<Cartas> cartas = sistema.EntregarMemoria();
 
 		for (int i = 0; i < cartas.size(); i++) {
+
 			Cartas carta = cartas.get(i);
 
 			modeloLista.addElement(
